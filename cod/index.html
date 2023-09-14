@@ -82,3 +82,123 @@
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Pedra, Papel e Tesoura</title>
+</head>
+<body>
+    <h1>Pedra, Papel e Tesoura</h1>
+    <div class="score">
+        <p>Player: <span id="playerScore">0</span></p>
+        <p>Máquina: <span id="computerScore">0</span></p>
+    </div>
+    <div class="choices">
+        <button id="rock">Pedra</button>
+        <button id="paper">Papel</button>
+        <button id="scissors">Tesoura</button>
+    </div>
+    <div id="result">
+        <p>Escolha uma opção acima para começar o jogo!</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #333;
+}
+
+.score {
+    margin: 20px 0;
+    font-size: 1.2rem;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#result {
+    margin: 20px 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+
+
+// Função para gerar a escolha aleatória da máquina
+function computerPlay() {
+    const choices = ["rock", "paper", "scissors"];
+    const randomIndex = Math.floor(Math.random() * choices.length);
+    return choices[randomIndex];
+}
+
+// Função para atualizar a pontuação na tela
+function updateScore(playerScore, computerScore) {
+    document.getElementById("playerScore").textContent = playerScore;
+    document.getElementById("computerScore").textContent = computerScore;
+}
+
+// Função para determinar o vencedor da rodada
+function playRound(playerSelection) {
+    const computerSelection = computerPlay();
+    let resultMessage = "";
+
+    if (playerSelection === computerSelection) {
+        resultMessage = "Empate! Tente novamente.";
+    } else if (
+        (playerSelection === "rock" && computerSelection === "scissors") ||
+        (playerSelection === "paper" && computerSelection === "rock") ||
+        (playerSelection === "scissors" && computerSelection === "paper")
+    ) {
+        resultMessage = "Você venceu esta rodada!";
+        playerScore++;
+    } else {
+        resultMessage = "A máquina venceu esta rodada.";
+        computerScore++;
+    }
+
+    updateScore(playerScore, computerScore);
+
+    // Atualiza o resultado na tela
+    document.getElementById("result").textContent = resultMessage;
+}
+
+let playerScore = 0;
+let computerScore = 0;
+
+// Adiciona eventos de clique aos botões
+document.getElementById("rock").addEventListener("click", () => {
+    playRound("rock");
+});
+
+document.getElementById("paper").addEventListener("click", () => {
+    playRound("paper");
+});
+
+document.getElementById("scissors").addEventListener("click", () => {
+    playRound("scissors");
+});
+
+
+<script src="script.js"></script>
+
